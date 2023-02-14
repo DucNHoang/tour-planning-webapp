@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "strict": true
+    },
+    "include": [
+      "**/private/**/*.ts",
+      "**/test/**/*.ts",
+      "**/shared/**/*.ts",
+      "**/fileDeclarations.d.ts",
+      "**/public/**/*.ts",
+      "**/public/**/*.vue",
+    ]
+  }

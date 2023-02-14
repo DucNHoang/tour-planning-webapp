@@ -1,0 +1,11 @@
+{
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "exec": "node --require ts-node/register --require tsconfig-paths/register --inspect=0.0.0.0:5859 private/index.ts",
+  "ext": "ts",
+  "ignore": ["test/**/*", "public/**/*"],
+  "nolazy": true,
+  "restartable": "rs",
+  "watch": ["configs/*", "private/**/*ts", "shared/**/*ts", "tsconfig.json"]
+}

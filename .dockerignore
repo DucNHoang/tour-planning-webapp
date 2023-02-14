@@ -1,0 +1,8 @@
+.git/
+node_modules/
+.vscode
+
+# optional
+*.yml
+
+configs/config-legacy.js

@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "allowJs": false,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2020",
+    "module": "commonjs",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "resolveJsonModule": true,
+    "lib": ["es2018", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@enum/*": ["shared/enum/*"],
+      "@interface/*": ["shared/interface/*"]
+    }
+  },
+  "exclude": ["./node_modules", "./build", "./private", "./test", "./configs"]
+}

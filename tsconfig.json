@@ -1,0 +1,28 @@
+{
+  "ts-node": {
+    "files": true
+  },
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "allowJs": false,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2020",
+    "module": "commonjs",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "resolveJsonModule": true,
+    "lib": ["es2018", "dom"],
+    "outDir": "./build",
+    "baseUrl": ".",
+    "paths": {
+      "@enum/*": ["shared/enum/*"],
+      "@interface/*": ["shared/interface/*"]
+    }
+  },
+  "exclude": ["./node_modules", "./build", "./dist", "./test", "./configs"]
+}
