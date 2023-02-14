@@ -8,19 +8,19 @@
         </div>
         <div class="modal-body">
           <!-- Add input forms here -->
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="updatedTour.customerName"
             label="Customer name"
           />
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="updatedTour.shipmentDate"
             label="Shipment date"
           />
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="updatedTour.locationFrom"
             label="Location from"
           />
-          <FreeTextInput v-model="updatedTour.locationTo" label="Location to" />
+          <FreeTextInputVue v-model="updatedTour.locationTo" label="Location to" />
           <div class="input-container">
             <label for="select">Assigned driver:</label>
             <select v-model="selectedDriverId">
@@ -55,7 +55,7 @@ import { cloneDeep, isNil } from 'lodash'
 
 import { ServerRoute } from '@enum/ServerRoute'
 
-import FreeTextInput from '../FreeTextInput.vue'
+import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 type ComponentData = {
   updatedTour: {
@@ -75,7 +75,7 @@ type ComponentData = {
 
 export default {
   components: {
-    FreeTextInput,
+    FreeTextInputVue,
   },
   props: {
     tourId: {

@@ -8,8 +8,8 @@
         </div>
         <div class="modal-body">
           <!-- Add input forms here -->
-          <FreeTextInput v-model="newDriver.name" label="Name" />
-          <FreeTextInput v-model="newDriver.location" label="Location" />
+          <FreeTextInputVue v-model="newDriver.name" label="Name" />
+          <FreeTextInputVue v-model="newDriver.location" label="Location" />
         </div>
         <ul>
           <li v-for="message in feedbackMessages" :key="message">
@@ -36,7 +36,7 @@ import { cloneDeep } from 'lodash'
 
 import { ServerRoute } from '@enum/ServerRoute'
 
-import FreeTextInput from '../FreeTextInput.vue'
+import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 type ComponentData = {
   newDriver: {
@@ -47,7 +47,7 @@ type ComponentData = {
 
 export default {
   components: {
-    FreeTextInput,
+    FreeTextInputVue,
   },
   data(): ComponentData {
     return {

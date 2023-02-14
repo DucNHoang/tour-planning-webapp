@@ -8,27 +8,27 @@
         </div>
         <div class="modal-body">
           <!-- Add input forms here -->
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="tour.customerName"
             :readonly="true"
             label="Customer name"
           />
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="tour.shipmentDate"
             :readonly="true"
             label="Shipment date"
           />
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="tour.locationFrom"
             :readonly="true"
             label="Location from"
           />
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="tour.locationTo"
             :readonly="true"
             label="Location to"
           />
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="tour.assignedDriver"
             :readonly="true"
             label="Assigned driver"
@@ -44,11 +44,10 @@
 
 <script lang="ts">
 import axios from 'axios'
-import { cloneDeep } from 'lodash'
 
 import { ServerRoute } from '@enum/ServerRoute'
 
-import FreeTextInput from '../FreeTextInput.vue'
+import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 type ComponentData = {
   tour: {
@@ -62,7 +61,7 @@ type ComponentData = {
 
 export default {
   components: {
-    FreeTextInput,
+    FreeTextInputVue,
   },
   props: {
     tourId: {

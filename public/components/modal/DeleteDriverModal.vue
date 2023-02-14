@@ -8,12 +8,12 @@
         </div>
         <div class="modal-body">
           <!-- Add input forms here -->
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="driver.name"
             :readonly="true"
             label="Name"
           />
-          <FreeTextInput
+          <FreeTextInputVue
             v-model="driver.location"
             :readonly="true"
             label="Location"
@@ -29,11 +29,10 @@
 
 <script lang="ts">
 import axios from 'axios'
-import { cloneDeep } from 'lodash'
 
 import { ServerRoute } from '@enum/ServerRoute'
 
-import FreeTextInput from '../FreeTextInput.vue'
+import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 type ComponentData = {
   driver: {
@@ -44,7 +43,7 @@ type ComponentData = {
 
 export default {
   components: {
-    FreeTextInput,
+    FreeTextInputVue,
   },
   props: {
     driverId: {
