@@ -35,14 +35,12 @@ import axios from 'axios'
 import { cloneDeep } from 'lodash'
 
 import { ServerRoute } from '@enum/ServerRoute'
+import { Driver } from '@type/Driver'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 type ComponentData = {
-  newDriver: {
-    name: string
-    location: string
-  }
+  newDriver: Omit<Driver, 'id'>
 }
 
 export default {

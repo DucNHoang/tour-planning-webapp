@@ -59,16 +59,14 @@ import axios from 'axios'
 
 import { ServerRoute } from '@enum/ServerRoute'
 
+import { Driver } from '@type/Driver'
+
 import AddDriverModalVue from './modal/AddDriverModal.vue'
 import UpdateDriverModalVue from './modal/UpdateDriverModal.vue'
 import DeleteDriverModalVue from './modal/DeleteDriverModal.vue'
 
 type ComponentData = {
-  drivers: {
-    id: string
-    name: string
-    location: string
-  }[]
+  drivers: Driver[]
   showAddDriverModal: boolean
   showUpdateDriverModal: boolean
   showDeleteDriverModal: boolean

@@ -7,13 +7,15 @@ import { StatusCodes as HttpStatusCode } from 'http-status-codes'
 import { readHtmlFile } from './util/readHtmlFile'
 
 import { ServerRoute } from '@enum/ServerRoute'
+import { Driver } from '@type/Driver'
+import { Tour } from '@type/Tour'
 
 export class RouteManager {
   public router: express.Router
 
   private rootPath: string
 
-  private drivers = [
+  private drivers: Driver[] = [
     { id: '2b6739e1-e3e8-4bcc-bd8f-e1a0d54c125c', name: 'John Doe', location: 'Berlin' },
     { id: '7647846f-4ef3-4517-af3a-cf21ecfe28b0', name: 'Duc Hoang', location: 'Mannheim' },
     {
@@ -28,7 +30,7 @@ export class RouteManager {
     }
   ]
 
-  private tours = [
+  private tours: Tour[] = [
     {
       id: '55c76fbd-7ef4-41eb-a6fc-d0c3f0e250c0',
       customerName: 'Great Company',

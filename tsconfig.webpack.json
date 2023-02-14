@@ -15,7 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "@enum/*": ["shared/enum/*"],
-      "@interface/*": ["shared/interface/*"]
+      "@type/*": ["shared/type/*"]
     }
   },
   "exclude": ["./node_modules", "./build", "./private", "./test", "./configs"]

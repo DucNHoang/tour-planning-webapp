@@ -54,22 +54,14 @@ import axios from 'axios'
 import { cloneDeep, isNil } from 'lodash'
 
 import { ServerRoute } from '@enum/ServerRoute'
+import { Tour } from '@type/Tour'
+import { Driver } from '@type/Driver'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 type ComponentData = {
-  updatedTour: {
-    customerName: string
-    shipmentDate: string
-    locationFrom: string
-    locationTo: string
-    assignedDriver: string
-  } | null
-  drivers: {
-    id: string
-    name: string
-    location: string
-  }[]
+  updatedTour: Omit<Tour, 'id'> | null
+  drivers: Driver[]
   selectedDriverId: string | null
 }
 

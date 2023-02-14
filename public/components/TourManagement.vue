@@ -54,20 +54,14 @@
 import axios from 'axios'
 
 import { ServerRoute } from '@enum/ServerRoute'
+import { Tour } from '@type/Tour'
 
 import AddTourModalVue from './modal/AddTourModal.vue'
 import UpdateTourModalVue from './modal/UpdateTourModal.vue'
 import DeleteTourModalVue from './modal/DeleteTourModal.vue'
 
 type ComponentData = {
-  tours: {
-    id: string
-    customerName: string
-    shipmentDate: string
-    locationFrom: string
-    locationTo: string
-    assignedDriver: string
-  }[]
+  tours: Tour[]
   tourIdInProcess: string
   showAddTourModal: boolean
   showUpdateTourModal: boolean

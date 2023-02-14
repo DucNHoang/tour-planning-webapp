@@ -31,14 +31,12 @@
 import axios from 'axios'
 
 import { ServerRoute } from '@enum/ServerRoute'
+import { Driver } from '@type/Driver'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 type ComponentData = {
-  driver: {
-    name: string
-    location: string
-  } | null
+  driver: Omit<Driver, 'id'> | null
 }
 
 export default {
