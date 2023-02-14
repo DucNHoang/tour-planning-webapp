@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  tour-planning-webapp:
+    # Need to rebind node-sass to the container's version of node
+    command: sh -c "npm rebuild node-sass && rm -rf dist && npm run start "
+    ports:
+      - 10000:10000
+    build:
+      context: ../../
+      dockerfile: ./docker/local/Dockerfile
+    volumes:
+      # Mount the source files into the container
+      # so hot-reloading still works
+      # Mounting the whole folder to get around not being
+      # able to mount individual files
+      - ../../:/root/
