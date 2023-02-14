@@ -45,6 +45,8 @@ import { Driver } from '@type/Driver'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
+import { containsNumber } from '../../helpers/containsNumber'
+
 type ComponentData = {
   updatedDriver: Omit<Driver, 'id'> | null
 }
@@ -70,7 +72,7 @@ export default {
       if (this.updatedDriver === null) return array
       const { name, location } = this.updatedDriver
       if (name === '' || location === '') array.push('No field can be empty.')
-      if (this.containsNumber(location))
+      if (containsNumber(location))
         array.push('Location cannot contain any number.')
       return array
     },
@@ -106,13 +108,6 @@ export default {
         this.$emit('modalClosed')
         this.updatedDriver = null
       }
-    },
-    containsNumber(value: string | number): boolean {
-      const isTypeNumber = typeof value === 'number'
-      if (isTypeNumber) return true
-      const isStringContainingNumber = /\d/.test(value)
-      if (isStringContainingNumber) return true
-      return false
     },
   },
 }

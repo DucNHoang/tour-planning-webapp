@@ -50,6 +50,8 @@ import { Driver } from '@type/Driver'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
+import { containsNumber } from '../../helpers/containsNumber'
+
 type ComponentData = {
   newTour: Omit<Tour, 'id'>
   drivers: Driver[]
@@ -93,9 +95,9 @@ export default {
         this.assignedDriver === ''
       )
         array.push('No field can be empty.')
-      if (this.containsNumber(locationFrom))
+      if (containsNumber(locationFrom))
         array.push('"Location from" cannot contain any number.')
-      if (this.containsNumber(locationTo))
+      if (containsNumber(locationTo))
         array.push('"Location to" cannot contain any number.')
 
       if (
@@ -143,13 +145,6 @@ export default {
         this.newTour.locationTo = ''
         this.newTour.assignedDriver = ''
       }
-    },
-    containsNumber(value: string | number): boolean {
-      const isTypeNumber = typeof value === 'number'
-      if (isTypeNumber) return true
-      const isStringContainingNumber = /\d/.test(value)
-      if (isStringContainingNumber) return true
-      return false
     },
   },
 }
