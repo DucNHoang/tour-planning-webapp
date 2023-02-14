@@ -72,6 +72,7 @@ export default {
       try {
         const newDriver = cloneDeep(this.newDriver)
         await DriverService.saveNewDriver(newDriver)
+        this.$emit('newDriverAdded')
       } catch (error) {
         alert('Something went wrong. Please try again.')
         console.log(error)
