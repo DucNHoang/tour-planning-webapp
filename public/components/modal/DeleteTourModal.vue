@@ -43,12 +43,11 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
-
-import { ServerRoute } from '@enum/ServerRoute'
-import { Tour } from '@type/Tour'
+import { TourService } from 'public/services/TourService'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
+
+import { Tour } from '@type/Tour'
 
 type ComponentData = {
   tour: Omit<Tour, 'id'> | null
@@ -76,16 +75,8 @@ export default {
   },
   async created(): Promise<void> {
     try {
-      const uri = `${ServerRoute.Tour}/${this.tourId}`
-      const response = await axios.get(uri)
-      const { tour } = response.data
-      this.tour = {
-        customerName: tour.customerName,
-        shipmentDate: tour.shipmentDate,
-        locationFrom: tour.locationFrom,
-        locationTo: tour.locationTo,
-        assignedDriver: tour.assignedDriver,
-      }
+      const tour = await TourService.getTourById(this.tourId)
+      this.tour = tour
     } catch (error) {
       alert('Something went wrong. Please try again.')
       console.log(error)
@@ -94,8 +85,7 @@ export default {
   methods: {
     async deleteTour(): Promise<void> {
       try {
-        const uri = `${ServerRoute.Tour}/${this.tourId}`
-        await axios.delete(uri)
+        await TourService.deleteTour(this.tourId)
         this.$emit('tourDeleted')
       } catch (error) {
         alert('Something went wrong. Please try again.')

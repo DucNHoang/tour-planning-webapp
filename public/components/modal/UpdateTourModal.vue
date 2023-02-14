@@ -20,7 +20,10 @@
             v-model="updatedTour.locationFrom"
             label="Location from"
           />
-          <FreeTextInputVue v-model="updatedTour.locationTo" label="Location to" />
+          <FreeTextInputVue
+            v-model="updatedTour.locationTo"
+            label="Location to"
+          />
           <div class="input-container">
             <label for="select">Assigned driver:</label>
             <select v-model="selectedDriverId">
@@ -50,16 +53,17 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
 import { cloneDeep, isNil } from 'lodash'
 
-import { ServerRoute } from '@enum/ServerRoute'
-import { Tour } from '@type/Tour'
-import { Driver } from '@type/Driver'
+import { DriverService } from 'public/services/DriverService'
+import { TourService } from 'public/services/TourService'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 import { containsNumber } from '../../helpers/containsNumber'
+
+import { Tour } from '@type/Tour'
+import { Driver } from '@type/Driver'
 
 type ComponentData = {
   updatedTour: Omit<Tour, 'id'> | null
@@ -129,12 +133,10 @@ export default {
   },
   async created(): Promise<void> {
     try {
-      const driverResponse = await axios.get(ServerRoute.Driver)
-      const { drivers } = driverResponse.data
+      const drivers = await DriverService.getAllDrivers()
       this.drivers = drivers
-      
-      const tourResponse = await axios.get(`${ServerRoute.Tour}/${this.tourId}`)
-      const { tour } = tourResponse.data
+
+      const tour = await TourService.getTourById(this.tourId)
       this.selectedDriverId =
         this.drivers.find((driver) => driver.name === tour.assignedDriver)
           ?.id ?? null
@@ -159,19 +161,14 @@ export default {
           throw new Error('updatedTour object is null or undefined.')
 
         updatedTour.assignedDriver = this.assignedDriver
-        const uri = `${ServerRoute.Tour}/${this.tourId}`
-        await axios.put(uri, updatedTour)
+        await TourService.updateTour(this.tourId, updatedTour)
         this.$emit('tourUpdated')
       } catch (error) {
         alert('Something went wrong. Please try again.')
         console.log(error)
       } finally {
         this.$emit('modalClosed')
-        this.updatedTour.customerName = ''
-        this.updatedTour.shipmentDate = ''
-        this.updatedTour.locationFrom = ''
-        this.updatedTour.locationTo = ''
-        this.updatedTour.assignedDriver = ''
+        this.updatedTour = null
         this.selectedDriverId = null
       }
     },

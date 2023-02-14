@@ -22,9 +22,13 @@
           <td>{{ tour.locationFrom }}</td>
           <td>{{ tour.locationTo }}</td>
           <td>{{ tour.assignedDriver }}</td>
-          <td style="width: min-content;">
-            <button class="button" @click="updateButtonClicked(tour.id)">Update</button>
-            <button class="button" @click="deleteButtonClicked(tour.id)">Delete</button>
+          <td style="width: min-content">
+            <button class="button" @click="updateButtonClicked(tour.id)">
+              Update
+            </button>
+            <button class="button" @click="deleteButtonClicked(tour.id)">
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
@@ -38,27 +42,32 @@
     <UpdateTourModalVue
       v-if="showUpdateTourModal"
       :tour-id="tourIdInProcess"
-      @modalClosed="showUpdateTourModal = false; resetTourIdInProcess();"
+      @modalClosed="
+        showUpdateTourModal = false
+        resetTourIdInProcess()
+      "
       @tourUpdated="getTours"
     ></UpdateTourModalVue>
     <DeleteTourModalVue
       v-if="showDeleteTourModal"
       :tour-id="tourIdInProcess"
-      @modalClosed="showDeleteTourModal = false; resetTourIdInProcess();"
+      @modalClosed="
+        showDeleteTourModal = false
+        resetTourIdInProcess()
+      "
       @tourDeleted="getTours"
     ></DeleteTourModalVue>
   </div>
 </template>
 
 <script lang="ts">
-import axios from 'axios'
-
-import { ServerRoute } from '@enum/ServerRoute'
-import { Tour } from '@type/Tour'
+import { TourService } from 'public/services/TourService'
 
 import AddTourModalVue from './modal/AddTourModal.vue'
 import UpdateTourModalVue from './modal/UpdateTourModal.vue'
 import DeleteTourModalVue from './modal/DeleteTourModal.vue'
+
+import { Tour } from '@type/Tour'
 
 type ComponentData = {
   tours: Tour[]
@@ -89,9 +98,7 @@ export default {
   methods: {
     async getTours(): Promise<void> {
       try {
-        const uri = ServerRoute.Tour
-        const response = await axios.get(uri)
-        const { tours } = response.data
+        const tours = await TourService.getAllTours()
         this.tours = tours
         return
       } catch (error) {
@@ -112,7 +119,7 @@ export default {
     },
     resetTourIdInProcess(): void {
       this.tourIdInProcess = ''
-    }
+    },
   },
 }
 </script>

@@ -31,15 +31,15 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
 import { cloneDeep } from 'lodash'
 
-import { ServerRoute } from '@enum/ServerRoute'
-import { Driver } from '@type/Driver'
+import { DriverService } from 'public/services/DriverService'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 import { containsNumber } from '../../helpers/containsNumber'
+
+import { Driver } from '@type/Driver'
 
 type ComponentData = {
   newDriver: Omit<Driver, 'id'>
@@ -70,10 +70,8 @@ export default {
   methods: {
     async saveDriver(): Promise<void> {
       try {
-        console.log('newDriver', JSON.stringify(this.newDriver))
         const newDriver = cloneDeep(this.newDriver)
-        const uri = ServerRoute.Driver
-        await axios.post(uri, newDriver)
+        await DriverService.saveNewDriver(newDriver)
       } catch (error) {
         alert('Something went wrong. Please try again.')
         console.log(error)

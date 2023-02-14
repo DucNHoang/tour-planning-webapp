@@ -28,12 +28,11 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
-
-import { ServerRoute } from '@enum/ServerRoute'
-import { Driver } from '@type/Driver'
+import { DriverService } from 'public/services/DriverService'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
+
+import { Driver } from '@type/Driver'
 
 type ComponentData = {
   driver: Omit<Driver, 'id'> | null
@@ -61,9 +60,7 @@ export default {
   },
   async created(): Promise<void> {
     try {
-      const uri = `${ServerRoute.Driver}/${this.driverId}`
-      const response = await axios.get(uri)
-      const { driver } = response.data
+      const driver = await DriverService.getDriverById(this.driverId)
       this.driver = driver
     } catch (error) {
       alert('Something went wrong. Please try again.')
@@ -73,8 +70,7 @@ export default {
   methods: {
     async deleteDriver(): Promise<void> {
       try {
-        const uri = `${ServerRoute.Driver}/${this.driverId}`
-        await axios.delete(uri)
+        await DriverService.deleteDriver(this.driverId)
         this.$emit('driverDeleted')
       } catch (error) {
         alert('Something went wrong. Please try again.')

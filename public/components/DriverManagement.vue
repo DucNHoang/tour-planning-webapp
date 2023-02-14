@@ -55,9 +55,7 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
-
-import { ServerRoute } from '@enum/ServerRoute'
+import { DriverService } from 'public/services/DriverService'
 
 import { Driver } from '@type/Driver'
 
@@ -92,9 +90,7 @@ export default {
   methods: {
     async getDrivers(): Promise<void> {
       try {
-        const uri = ServerRoute.Driver
-        const response = await axios.get(uri)
-        const { drivers } = response.data
+        const drivers = await DriverService.getAllDrivers()
         this.drivers = drivers
         return
       } catch (error) {
@@ -115,7 +111,7 @@ export default {
     },
     resetDriverIdInProcess(): void {
       this.driverIdInProcess = ''
-    }
+    },
   },
 }
 </script>

@@ -8,14 +8,8 @@
         </div>
         <div class="modal-body">
           <!-- Add input forms here -->
-          <FreeTextInputVue
-            v-model="updatedDriver.name"
-            label="Name"
-          />
-          <FreeTextInputVue
-            v-model="updatedDriver.location"
-            label="Location"
-          />
+          <FreeTextInputVue v-model="updatedDriver.name" label="Name" />
+          <FreeTextInputVue v-model="updatedDriver.location" label="Location" />
         </div>
         <ul>
           <li v-for="message in feedbackMessages" :key="message">
@@ -37,15 +31,15 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
 import { cloneDeep, isNil } from 'lodash'
 
-import { ServerRoute } from '@enum/ServerRoute'
-import { Driver } from '@type/Driver'
+import { DriverService } from 'public/services/DriverService'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 import { containsNumber } from '../../helpers/containsNumber'
+
+import { Driver } from '@type/Driver'
 
 type ComponentData = {
   updatedDriver: Omit<Driver, 'id'> | null
@@ -82,8 +76,7 @@ export default {
   },
   async created(): Promise<void> {
     try {
-      const response = await axios.get(`${ServerRoute.Driver}/${this.driverId}`)
-      const { driver } = response.data
+      const driver = await DriverService.getDriverById(this.driverId)
       this.updatedDriver = driver
     } catch (error) {
       alert('Something went wrong. Please try again.')
@@ -98,8 +91,7 @@ export default {
         if (isNil(updatedDriver))
           throw new Error('updatedDriver object is null or undefined.')
 
-        const uri = `${ServerRoute.Driver}/${this.driverId}`
-        await axios.put(uri, updatedDriver)
+        await DriverService.updateDriver(this.driverId, updatedDriver)
         this.$emit('driverUpdated')
       } catch (error) {
         alert('Something went wrong. Please try again.')

@@ -8,9 +8,18 @@
         </div>
         <div class="modal-body">
           <!-- Add input forms here -->
-          <FreeTextInputVue v-model="newTour.customerName" label="Customer name" />
-          <FreeTextInputVue v-model="newTour.shipmentDate" label="Shipment date" />
-          <FreeTextInputVue v-model="newTour.locationFrom" label="Location from" />
+          <FreeTextInputVue
+            v-model="newTour.customerName"
+            label="Customer name"
+          />
+          <FreeTextInputVue
+            v-model="newTour.shipmentDate"
+            label="Shipment date"
+          />
+          <FreeTextInputVue
+            v-model="newTour.locationFrom"
+            label="Location from"
+          />
           <FreeTextInputVue v-model="newTour.locationTo" label="Location to" />
           <div class="input-container">
             <label for="select">Assigned driver:</label>
@@ -41,16 +50,17 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios'
 import { cloneDeep, isNil } from 'lodash'
 
-import { ServerRoute } from '@enum/ServerRoute'
-import { Tour } from '@type/Tour'
-import { Driver } from '@type/Driver'
+import { DriverService } from 'public/services/DriverService'
+import { TourService } from 'public/services/TourService'
 
 import FreeTextInputVue from '../input/FreeTextInput.vue'
 
 import { containsNumber } from '../../helpers/containsNumber'
+
+import { Tour } from '@type/Tour'
+import { Driver } from '@type/Driver'
 
 type ComponentData = {
   newTour: Omit<Tour, 'id'>
@@ -116,9 +126,7 @@ export default {
   },
   async created(): Promise<void> {
     try {
-      const uri = ServerRoute.Driver
-      const response = await axios.get(uri)
-      const { drivers } = response.data
+      const drivers = await DriverService.getAllDrivers()
       this.drivers = drivers
       return
     } catch (error) {
@@ -131,8 +139,7 @@ export default {
       try {
         const newTour = cloneDeep(this.newTour)
         newTour.assignedDriver = this.assignedDriver
-        const uri = ServerRoute.Tour
-        await axios.post(uri, newTour)
+        await TourService.saveNewTour(newTour)
         this.$emit('newTourAdded')
       } catch (error) {
         alert('Something went wrong. Please try again.')
